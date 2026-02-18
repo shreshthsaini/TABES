@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TABES | Project Page</title>
+    <meta
+      name="description"
+      content="TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <header class="site-header shell">
+      <a class="brand" href="index.html">TABES</a>
+      <nav>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">arXiv</a>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <p class="kicker">arXiv 2602.00250</p>
+        <h1>Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models</h1>
+        <p>
+          TABES is a training-free guidance method that fixes trajectory lock-in by pairing
+          adaptive forward entropy steering with backward uncertainty correction.
+        </p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">ArXiv</a>
+          <span class="btn btn-muted" aria-disabled="true">Code (coming soon)</span>
+          <a class="btn btn-ghost" href="blog.html">Read the Method Blog</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Why TABES?</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Problem: trajectory lock-in</h3>
+            <p>
+              Standard entropy minimization can commit early to wrong tokens. As denoising
+              proceeds, alternatives collapse and decoding quality drops.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Core idea: steer both directions</h3>
+            <p>
+              TABES combines confidence growth in the forward chain with uncertainty-aware
+              correction from a reversed trajectory estimate.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Practical: no retraining</h3>
+            <p>
+              The method is drop-in for masked diffusion LMs and targets better outputs with
+              controlled computational overhead.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Method Snapshot</h2>
+        <figure>
+          <img src="assets/images/tabes-pipeline.svg" alt="TABES pipeline diagram" />
+          <figcaption>
+            Forward confidence steering and backward trajectory steering are fused each denoising
+            step to produce robust token updates.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Reported Gains</h2>
+        <figure>
+          <img src="assets/images/results-snapshot.svg" alt="TABES reported gains summary" />
+          <figcaption>
+            Paper-reported improvements across text completion, code infilling, and protein
+            sequence design benchmarks.
+          </figcaption>
+        </figure>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <h3>Cite Guide</h3>
+      <p>If this work helps your research, please cite the paper:</p>
+      <pre><code>@article{luo2026tabes,
+  title   = {TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models},
+  author  = {Luo, Yanchen and Wang, Peisong and Liao, Tinglong and Tong, Shengbang and Zhuang, Yufei and Zhu, Minjun and Zhang, Hao and Cun, Xiaodong and Xu, Qiang},
+  journal = {arXiv preprint arXiv:2602.00250},
+  year    = {2026}
+}</code></pre>
+      <p class="footer-note">Project links: <a href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">ArXiv</a> | Code: coming soon.</p>
+    </footer>
+  </body>
+</html>

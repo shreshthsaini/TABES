@@ -1,0 +1,46 @@
+<svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Trajectory inversion sampling weights</title>
+  <desc id="desc">Early uncertain states receive stronger influence after inversion.</desc>
+  <rect width="1100" height="560" fill="#fffaf4"/>
+
+  <text x="70" y="72" font-family="Space Grotesk, sans-serif" font-size="35" fill="#1f2f2a">Trajectory Inversion Sampling (TIS)</text>
+  <text x="70" y="106" font-family="Literata, serif" font-size="22" fill="#42534d">Reverse weight emphasis so early uncertain states can correct later overconfidence.</text>
+
+  <line x1="120" y1="390" x2="980" y2="390" stroke="#42534d" stroke-width="4"/>
+  <text x="984" y="398" font-family="Space Grotesk, sans-serif" font-size="22" fill="#42534d">time t</text>
+
+  <g font-family="Space Grotesk, sans-serif" font-size="20" fill="#42534d">
+    <text x="155" y="424">x1</text>
+    <text x="295" y="424">x2</text>
+    <text x="435" y="424">x3</text>
+    <text x="575" y="424">x4</text>
+    <text x="715" y="424">x5</text>
+    <text x="855" y="424">xt</text>
+  </g>
+
+  <g>
+    <circle cx="170" cy="390" r="14" fill="#0f6c62"/>
+    <circle cx="310" cy="390" r="12" fill="#2f8b80"/>
+    <circle cx="450" cy="390" r="10" fill="#54a89f"/>
+    <circle cx="590" cy="390" r="9" fill="#75bdb4"/>
+    <circle cx="730" cy="390" r="8" fill="#9ad2ca"/>
+    <circle cx="870" cy="390" r="7" fill="#bfe4df"/>
+  </g>
+
+  <rect x="120" y="170" width="380" height="150" rx="14" fill="#e2f6f2" stroke="#b9e0d8"/>
+  <text x="145" y="212" font-family="Space Grotesk, sans-serif" font-size="25" fill="#0f5f56">Inverted influence</text>
+  <text x="145" y="246" font-family="Literata, serif" font-size="21" fill="#18534b">Higher effective weight on early</text>
+  <text x="145" y="273" font-family="Literata, serif" font-size="21" fill="#18534b">uncertain states in the history.</text>
+
+  <rect x="550" y="160" width="430" height="175" rx="14" fill="#fff1e8" stroke="#f2c4b2"/>
+  <text x="575" y="203" font-family="Space Grotesk, sans-serif" font-size="25" fill="#8d3622">Practical impact</text>
+  <text x="575" y="237" font-family="Literata, serif" font-size="21" fill="#7f2f1d">Corrects wrong early commitments</text>
+  <text x="575" y="264" font-family="Literata, serif" font-size="21" fill="#7f2f1d">instead of amplifying them.</text>
+  <text x="575" y="291" font-family="Literata, serif" font-size="21" fill="#7f2f1d">Reduces lock-in during denoising.</text>
+
+  <path d="M170 340 C 250 295, 360 280, 470 275" fill="none" stroke="#0f6c62" stroke-width="5"/>
+  <polygon points="470,275 453,267 457,285" fill="#0f6c62"/>
+
+  <path d="M870 350 C 820 310, 760 290, 690 278" fill="none" stroke="#d64d2f" stroke-width="5"/>
+  <polygon points="690,278 707,271 704,289" fill="#d64d2f"/>
+</svg>
