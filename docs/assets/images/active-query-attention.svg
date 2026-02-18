@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" font-family="'Segoe UI','Helvetica Neue',sans-serif">
+  <defs>
+    <linearGradient id="bgAqa" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0faf8"/><stop offset="100%" stop-color="#f5f0ff"/></linearGradient>
+    <filter id="shAqa"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="260" rx="16" fill="url(#bgAqa)"/>
+  <text x="400" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2f2a">ActiveQueryAttention: Sparse Backward for Efficiency</text>
+
+  <!-- Left: standard backward O(L²d) -->
+  <rect x="30" y="50" width="350" height="190" rx="14" fill="#fff" stroke="#e8a895" stroke-width="1.5" filter="url(#shAqa)"/>
+  <text x="205" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#d64d2f">Standard Backward: O(L²·d)</text>
+
+  <!-- Full attention matrix -->
+  <rect x="60" y="95" width="120" height="120" rx="4" fill="#ffe2d8" stroke="#d64d2f" stroke-width="1"/>
+  <text x="120" y="160" text-anchor="middle" font-size="10" fill="#d64d2f" font-weight="600">Full L×L</text>
+  <text x="120" y="175" text-anchor="middle" font-size="10" fill="#d64d2f">backward</text>
+
+  <!-- Labels -->
+  <text x="120" y="90" text-anchor="middle" font-size="9" fill="#888">Keys (L)</text>
+  <text x="50" y="160" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-90 50 160)">Queries (L)</text>
+
+  <!-- Cost annotation -->
+  <rect x="210" y="110" width="150" height="60" rx="8" fill="#fff5f0" stroke="#e8a895"/>
+  <text x="285" y="132" text-anchor="middle" font-size="10" fill="#d64d2f" font-weight="600">Gradients for ALL queries</text>
+  <text x="285" y="150" text-anchor="middle" font-size="10" fill="#d64d2f">Even inactive positions!</text>
+  <text x="285" y="168" text-anchor="middle" font-size="9" fill="#888">Wastes compute</text>
+
+  <!-- Right: ActiveQueryAttention O(|A|·L·d) -->
+  <rect x="420" y="50" width="350" height="190" rx="14" fill="#fff" stroke="#8ecfc4" stroke-width="1.5" filter="url(#shAqa)"/>
+  <text x="595" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#0f6c62">ActiveQueryAttention: O(|A|·L·d)</text>
+
+  <!-- Sparse attention matrix -->
+  <rect x="450" y="95" width="120" height="120" rx="4" fill="#f0f0f0" stroke="#ccc" stroke-width="1"/>
+  <!-- Active rows highlighted -->
+  <rect x="450" y="105" width="120" height="12" rx="2" fill="#0f6c62" opacity="0.3"/>
+  <rect x="450" y="130" width="120" height="12" rx="2" fill="#0f6c62" opacity="0.3"/>
+  <rect x="450" y="155" width="120" height="12" rx="2" fill="#0f6c62" opacity="0.3"/>
+  <rect x="450" y="180" width="120" height="12" rx="2" fill="#0f6c62" opacity="0.3"/>
+  <!-- Inactive rows greyed -->
+  <text x="510" y="200" text-anchor="middle" font-size="9" fill="#888">stop_grad on inactive</text>
+
+  <!-- Labels -->
+  <text x="510" y="90" text-anchor="middle" font-size="9" fill="#888">Keys (L)</text>
+  <text x="440" y="160" text-anchor="middle" font-size="9" fill="#888" transform="rotate(-90 440 150)">Queries</text>
+
+  <!-- Cost annotation -->
+  <rect x="600" y="110" width="150" height="60" rx="8" fill="#f0fdfb" stroke="#8ecfc4"/>
+  <text x="675" y="132" text-anchor="middle" font-size="10" fill="#0f6c62" font-weight="600">Only |A_t| active queries</text>
+  <text x="675" y="150" text-anchor="middle" font-size="10" fill="#0f6c62">Forward unchanged!</text>
+  <text x="675" y="168" text-anchor="middle" font-size="9" fill="#888">|A_t| ≪ L typically</text>
+</svg>

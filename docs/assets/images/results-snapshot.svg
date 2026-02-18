@@ -1,46 +1,87 @@
-<svg width="1100" height="590" viewBox="0 0 1100 590" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Reported gains summary</title>
-  <desc id="desc">Bar chart with relative improvements from the TABES paper.</desc>
-  <rect width="1100" height="590" fill="#fffbf5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" font-family="'Segoe UI','Helvetica Neue',sans-serif">
+  <defs>
+    <linearGradient id="bgRes" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0faf8"/><stop offset="100%" stop-color="#fff5e9"/></linearGradient>
+    <filter id="shRes"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/></filter>
+  </defs>
 
-  <text x="70" y="70" font-family="Space Grotesk, sans-serif" font-size="36" fill="#1f2f2a">TABES Reported Relative Improvements</text>
-  <text x="70" y="104" font-family="Literata, serif" font-size="22" fill="#42534d">Values summarized from the paper's experimental sections.</text>
+  <rect width="820" height="360" rx="16" fill="url(#bgRes)"/>
+  <text x="410" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2f2a">BoE Results: LLaDA-8B Benchmarks (pass@1, L=256)</text>
+  <text x="410" y="46" text-anchor="middle" font-size="10" fill="#888">All methods are training-free • compute-matched decoding</text>
 
-  <line x1="120" y1="490" x2="980" y2="490" stroke="#52635d" stroke-width="3"/>
-  <line x1="120" y1="150" x2="120" y2="490" stroke="#52635d" stroke-width="3"/>
+  <!-- Bar chart area -->
+  <!-- Y axis -->
+  <line x1="80" y1="70" x2="80" y2="300" stroke="#ccc" stroke-width="1"/>
+  <text x="30" y="78" font-size="9" fill="#888">90%</text>
+  <text x="30" y="136" font-size="9" fill="#888">70%</text>
+  <text x="30" y="194" font-size="9" fill="#888">50%</text>
+  <text x="30" y="252" font-size="9" fill="#888">30%</text>
+  <text x="30" y="304" font-size="9" fill="#888">10%</text>
 
-  <g font-family="Space Grotesk, sans-serif" font-size="19" fill="#52635d">
-    <text x="85" y="490">0</text>
-    <text x="72" y="430">5</text>
-    <text x="64" y="370">10</text>
-    <text x="64" y="310">15</text>
-    <text x="64" y="250">20</text>
-  </g>
+  <!-- Grid lines -->
+  <line x1="80" y1="75" x2="770" y2="75" stroke="#eee" stroke-width="0.5"/>
+  <line x1="80" y1="133" x2="770" y2="133" stroke="#eee" stroke-width="0.5"/>
+  <line x1="80" y1="191" x2="770" y2="191" stroke="#eee" stroke-width="0.5"/>
+  <line x1="80" y1="249" x2="770" y2="249" stroke="#eee" stroke-width="0.5"/>
 
-  <g>
-    <rect x="190" y="315" width="140" height="175" rx="12" fill="#d64d2f"/>
-    <rect x="380" y="308" width="140" height="182" rx="12" fill="#e4765e"/>
-    <rect x="570" y="374" width="140" height="116" rx="12" fill="#0f6c62"/>
-    <rect x="760" y="156" width="140" height="334" rx="12" fill="#2b8e84"/>
-  </g>
+  <!-- X axis -->
+  <line x1="80" y1="300" x2="770" y2="300" stroke="#ccc" stroke-width="1"/>
 
-  <g font-family="Space Grotesk, sans-serif" font-size="24" fill="#1f2f2a">
-    <text x="217" y="304">+6.5%</text>
-    <text x="407" y="297">+6.9%</text>
-    <text x="597" y="363">+3.4%</text>
-    <text x="780" y="145">+18.5%</text>
-  </g>
+  <!-- Benchmark groups: MBPP, HumanEval, GSM8K, MATH500, Sudoku -->
+  <!-- MBPP cluster -->
+  <text x="160" y="320" text-anchor="middle" font-size="10" font-weight="600" fill="#1f2f2a">MBPP</text>
+  <!-- Confidence: 28.4 → y = 300 - (28.4/90)*230 = 300-72.6=227 h=73 -->
+  <rect x="115" y="227" width="20" height="73" rx="3" fill="#aaa" opacity="0.6"/>
+  <!-- LookUM: 36.2 → y=300-(36.2/90)*230 = 300-92.5=207 h=93 -->
+  <rect x="140" y="207" width="20" height="93" rx="3" fill="#7c5cbf" opacity="0.7"/>
+  <!-- BoE: 37.4 → y=300-(37.4/90)*230 = 300-95.6=204 h=96 -->
+  <rect x="165" y="204" width="20" height="96" rx="3" fill="#0f6c62"/>
+  <text x="175" y="198" text-anchor="middle" font-size="8" fill="#0f6c62" font-weight="700">37.4</text>
 
-  <g font-family="Literata, serif" font-size="20" fill="#42534d">
-    <text x="175" y="530">Text completion</text>
-    <text x="205" y="556">(MDM)</text>
+  <!-- HumanEval cluster -->
+  <text x="280" y="320" text-anchor="middle" font-size="10" font-weight="600" fill="#1f2f2a">HumanEval</text>
+  <!-- Confidence: 32.0 → y=300-(32/90)*230=218 h=82 -->
+  <rect x="235" y="218" width="20" height="82" rx="3" fill="#aaa" opacity="0.6"/>
+  <!-- LookUM: 35.9 → y=208 h=92 -->
+  <rect x="260" y="208" width="20" height="92" rx="3" fill="#7c5cbf" opacity="0.7"/>
+  <!-- BoE: 33.1 → y=215 h=85 -->
+  <rect x="285" y="215" width="20" height="85" rx="3" fill="#0f6c62"/>
+  <text x="270" y="202" text-anchor="middle" font-size="8" fill="#7c5cbf" font-weight="700">35.9</text>
 
-    <text x="365" y="530">Text completion</text>
-    <text x="390" y="556">(UMDM)</text>
+  <!-- GSM8K cluster -->
+  <text x="400" y="320" text-anchor="middle" font-size="10" font-weight="600" fill="#1f2f2a">GSM8K</text>
+  <!-- Confidence: 76.7 → y=300-(76.7/90)*230=104 h=196 -->
+  <rect x="355" y="104" width="20" height="196" rx="3" fill="#aaa" opacity="0.6"/>
+  <!-- LookUM: 79.3 → y=97 h=203 -->
+  <rect x="380" y="97" width="20" height="203" rx="3" fill="#7c5cbf" opacity="0.7"/>
+  <!-- BoE: 80.6 → y=94 h=206 -->
+  <rect x="405" y="94" width="20" height="206" rx="3" fill="#0f6c62"/>
+  <text x="415" y="88" text-anchor="middle" font-size="8" fill="#0f6c62" font-weight="700">80.6</text>
 
-    <text x="587" y="530">Code infilling</text>
+  <!-- MATH500 cluster -->
+  <text x="520" y="320" text-anchor="middle" font-size="10" font-weight="600" fill="#1f2f2a">MATH500</text>
+  <!-- Confidence: 32.4 → y=217 h=83 -->
+  <rect x="475" y="217" width="20" height="83" rx="3" fill="#aaa" opacity="0.6"/>
+  <!-- LookUM: 34.6 → y=212 h=88 -->
+  <rect x="500" y="212" width="20" height="88" rx="3" fill="#7c5cbf" opacity="0.7"/>
+  <!-- BoE: 34.2 → y=213 h=87 -->
+  <rect x="525" y="213" width="20" height="87" rx="3" fill="#0f6c62"/>
+  <text x="510" y="206" text-anchor="middle" font-size="8" fill="#7c5cbf" font-weight="700">34.6</text>
 
-    <text x="757" y="530">Protein sequence</text>
-    <text x="792" y="556">design</text>
-  </g>
+  <!-- Sudoku cluster -->
+  <text x="640" y="320" text-anchor="middle" font-size="10" font-weight="600" fill="#1f2f2a">Sudoku</text>
+  <!-- Confidence: 27.4 → y=230 h=70 -->
+  <rect x="595" y="230" width="20" height="70" rx="3" fill="#aaa" opacity="0.6"/>
+  <!-- LookUM: 28.0 → y=228 h=72 -->
+  <rect x="620" y="228" width="20" height="72" rx="3" fill="#7c5cbf" opacity="0.7"/>
+  <!-- BoE: 29.2 → y=226 h=74 -->
+  <rect x="645" y="225" width="20" height="75" rx="3" fill="#0f6c62"/>
+  <text x="655" y="219" text-anchor="middle" font-size="8" fill="#0f6c62" font-weight="700">29.2</text>
+
+  <!-- Legend -->
+  <rect x="550" y="338" width="12" height="12" rx="2" fill="#aaa" opacity="0.6"/>
+  <text x="568" y="349" font-size="9" fill="#666">Confidence</text>
+  <rect x="630" y="338" width="12" height="12" rx="2" fill="#7c5cbf" opacity="0.7"/>
+  <text x="648" y="349" font-size="9" fill="#666">LookUM</text>
+  <rect x="700" y="338" width="12" height="12" rx="2" fill="#0f6c62"/>
+  <text x="718" y="349" font-size="9" fill="#666" font-weight="600">BoE (ours)</text>
 </svg>

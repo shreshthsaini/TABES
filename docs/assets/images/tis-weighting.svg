@@ -1,46 +1,63 @@
-<svg width="1100" height="560" viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Trajectory inversion sampling weights</title>
-  <desc id="desc">Early uncertain states receive stronger influence after inversion.</desc>
-  <rect width="1100" height="560" fill="#fffaf4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" font-family="'Segoe UI','Helvetica Neue',sans-serif">
+  <defs>
+    <linearGradient id="bgTis" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f8f5ff"/><stop offset="100%" stop-color="#f0faf8"/></linearGradient>
+    <linearGradient id="purp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8b6fc0"/><stop offset="100%" stop-color="#6a4fa0"/></linearGradient>
+    <filter id="sh2"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/></filter>
+  </defs>
 
-  <text x="70" y="72" font-family="Space Grotesk, sans-serif" font-size="35" fill="#1f2f2a">Trajectory Inversion Sampling (TIS)</text>
-  <text x="70" y="106" font-family="Literata, serif" font-size="22" fill="#42534d">Reverse weight emphasis so early uncertain states can correct later overconfidence.</text>
+  <rect width="800" height="300" rx="16" fill="url(#bgTis)"/>
+  <text x="400" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2f2a">Token Importance Score (TIS): How BoE Ranks Candidates</text>
 
-  <line x1="120" y1="390" x2="980" y2="390" stroke="#42534d" stroke-width="4"/>
-  <text x="984" y="398" font-family="Space Grotesk, sans-serif" font-size="22" fill="#42534d">time t</text>
+  <!-- Left: The Formula -->
+  <rect x="30" y="50" width="340" height="230" rx="14" fill="#fff" stroke="#b8a5d6" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="200" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#6a4fa0">The TIS Formula</text>
 
-  <g font-family="Space Grotesk, sans-serif" font-size="20" fill="#42534d">
-    <text x="155" y="424">x1</text>
-    <text x="295" y="424">x2</text>
-    <text x="435" y="424">x3</text>
-    <text x="575" y="424">x4</text>
-    <text x="715" y="424">x5</text>
-    <text x="855" y="424">xt</text>
-  </g>
+  <!-- Formula lines -->
+  <rect x="50" y="90" width="300" height="36" rx="8" fill="#f3eeff" stroke="#d4c6f0"/>
+  <text x="200" y="114" text-anchor="middle" font-size="13" font-weight="600" fill="#5a3d9e">TIS_i = −⟨ g_i , Δe_i ⟩</text>
 
-  <g>
-    <circle cx="170" cy="390" r="14" fill="#0f6c62"/>
-    <circle cx="310" cy="390" r="12" fill="#2f8b80"/>
-    <circle cx="450" cy="390" r="10" fill="#54a89f"/>
-    <circle cx="590" cy="390" r="9" fill="#75bdb4"/>
-    <circle cx="730" cy="390" r="8" fill="#9ad2ca"/>
-    <circle cx="870" cy="390" r="7" fill="#bfe4df"/>
-  </g>
+  <text x="55" y="148" font-size="10" fill="#42534d"><tspan font-weight="600" fill="#6a4fa0">g_i</tspan> = gradient of future masked entropy</text>
+  <text x="80" y="165" font-size="10" fill="#42534d">w.r.t. embedding at position i</text>
 
-  <rect x="120" y="170" width="380" height="150" rx="14" fill="#e2f6f2" stroke="#b9e0d8"/>
-  <text x="145" y="212" font-family="Space Grotesk, sans-serif" font-size="25" fill="#0f5f56">Inverted influence</text>
-  <text x="145" y="246" font-family="Literata, serif" font-size="21" fill="#18534b">Higher effective weight on early</text>
-  <text x="145" y="273" font-family="Literata, serif" font-size="21" fill="#18534b">uncertain states in the history.</text>
+  <text x="55" y="190" font-size="10" fill="#42534d"><tspan font-weight="600" fill="#6a4fa0">Δe_i</tspan> = soft-write embedding − mask embedding</text>
+  <text x="80" y="207" font-size="10" fill="#42534d">= direction of "revealing" token i</text>
 
-  <rect x="550" y="160" width="430" height="175" rx="14" fill="#fff1e8" stroke="#f2c4b2"/>
-  <text x="575" y="203" font-family="Space Grotesk, sans-serif" font-size="25" fill="#8d3622">Practical impact</text>
-  <text x="575" y="237" font-family="Literata, serif" font-size="21" fill="#7f2f1d">Corrects wrong early commitments</text>
-  <text x="575" y="264" font-family="Literata, serif" font-size="21" fill="#7f2f1d">instead of amplifying them.</text>
-  <text x="575" y="291" font-family="Literata, serif" font-size="21" fill="#7f2f1d">Reduces lock-in during denoising.</text>
+  <text x="55" y="237" font-size="10" fill="#42534d"><tspan font-weight="600" fill="#0f6c62">High TIS</tspan> → revealing this token reduces the</text>
+  <text x="55" y="254" font-size="10" fill="#42534d">most future uncertainty → unmask first!</text>
 
-  <path d="M170 340 C 250 295, 360 280, 470 275" fill="none" stroke="#0f6c62" stroke-width="5"/>
-  <polygon points="470,275 453,267 457,285" fill="#0f6c62"/>
+  <!-- Right: Visual bar chart of TIS scores -->
+  <rect x="400" y="50" width="375" height="230" rx="14" fill="#fff" stroke="#8ecfc4" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="588" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#0f6c62">Ranking Candidates by TIS</text>
 
-  <path d="M870 350 C 820 310, 760 290, 690 278" fill="none" stroke="#d64d2f" stroke-width="5"/>
-  <polygon points="690,278 707,271 704,289" fill="#d64d2f"/>
+  <!-- Horizontal bars for each token -->
+  <text x="420" y="108" font-size="10" fill="#42534d" font-weight="600">Token positions (i ∈ M_t):</text>
+
+  <!-- Pos 5: highest TIS -->
+  <text x="425" y="132" font-size="10" fill="#42534d">pos 5 ("42")</text>
+  <rect x="510" y="120" width="220" height="16" rx="4" fill="#0f6c62" opacity="0.9"/>
+  <text x="740" y="132" font-size="9" fill="#fff" text-anchor="end" font-weight="600">TIS = 0.87</text>
+
+  <!-- Pos 3 -->
+  <text x="425" y="156" font-size="10" fill="#42534d">pos 3 ("sum")</text>
+  <rect x="510" y="144" width="180" height="16" rx="4" fill="#0f6c62" opacity="0.7"/>
+  <text x="698" y="156" font-size="9" fill="#fff" text-anchor="end" font-weight="600">TIS = 0.71</text>
+
+  <!-- Pos 8 -->
+  <text x="425" y="180" font-size="10" fill="#42534d">pos 8 ("of")</text>
+  <rect x="510" y="168" width="120" height="16" rx="4" fill="#0f6c62" opacity="0.5"/>
+  <text x="636" y="180" font-size="9" fill="#fff" text-anchor="end" font-weight="600">TIS = 0.48</text>
+
+  <!-- Pos 1 -->
+  <text x="425" y="204" font-size="10" fill="#42534d">pos 1 ("the")</text>
+  <rect x="510" y="192" width="60" height="16" rx="4" fill="#aaa" opacity="0.6"/>
+  <text x="576" y="204" font-size="9" fill="#fff" text-anchor="end" font-weight="600">TIS = 0.22</text>
+
+  <!-- Pos 12 -->
+  <text x="425" y="228" font-size="10" fill="#42534d">pos 12 ("is")</text>
+  <rect x="510" y="216" width="40" height="16" rx="4" fill="#aaa" opacity="0.4"/>
+  <text x="556" y="228" font-size="9" fill="#fff" text-anchor="end" font-weight="600">TIS = 0.14</text>
+
+  <!-- Selection bracket -->
+  <text x="420" y="258" font-size="10" fill="#0f6c62" font-weight="600">→ Unmask: pos 5, 3, 8 (top-b by gated TIS)</text>
+  <text x="420" y="272" font-size="9" fill="#888">Pivotal tokens selected over easy function words</text>
 </svg>

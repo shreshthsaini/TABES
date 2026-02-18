@@ -3,105 +3,197 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TABES | Project Page</title>
-    <meta
-      name="description"
-      content="TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models"
-    />
+    <title>TABES | Trajectory-Aware Backward-on-Entropy Steering</title>
+    <meta name="description" content="TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models. A training-free, gradient-guided inference framework for masked diffusion language models." />
+    <meta name="keywords" content="TABES, masked diffusion models, BoE steering, Token Importance Score, ActiveQueryAttention, LLaDA, inference-time scaling" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models" />
+    <meta property="og:description" content="Training-free gradient-guided steering that fixes trajectory lock-in in masked diffusion language models." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shreshthsaini.github.io/TABES/" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <div class="grain"></div>
+
+    <!-- ===== Header ===== -->
     <header class="site-header shell">
       <a class="brand" href="index.html">TABES</a>
       <nav>
         <a href="index.html" aria-current="page">Home</a>
-        <a href="blog.html">Blog</a>
         <a href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">arXiv</a>
       </nav>
     </header>
 
+    <!-- ===== Main ===== -->
     <main class="shell">
+
+      <!-- Hero -->
       <section class="hero">
-        <p class="kicker">arXiv 2602.00250</p>
-        <h1>Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models</h1>
-        <p>
-          TABES is a training-free guidance method that fixes trajectory lock-in by pairing
-          adaptive forward entropy steering with backward uncertainty correction.
+        <p class="kicker">arXiv 2602.00250 &nbsp;·&nbsp; cs.LG &nbsp;·&nbsp; 2026</p>
+        <h1>TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models</h1>
+
+        <!-- Authors -->
+        <div class="authors">
+          <span><a href="https://shreshthsaini.github.io/" target="_blank" rel="noreferrer">Shreshth Saini</a><sup>1</sup>,</span>
+          <span>Avinab Saha<sup>2</sup>,</span>
+          <span>Balu Adsumilli<sup>2</sup>,</span>
+          <span>Neil Birkbeck<sup>2</sup>,</span>
+          <span>Yilin Wang<sup>2</sup>,</span>
+          <span><a href="https://www.ece.utexas.edu/people/faculty/alan-bovik" target="_blank" rel="noreferrer">Alan C. Bovik</a><sup>1</sup></span>
+        </div>
+        <p class="affiliations">
+          <sup>1</sup>The University of Texas at Austin &nbsp;&nbsp;
+          <sup>2</sup>Google
         </p>
+
+        <p>
+          Masked Diffusion Models (MDMs) enable parallel, revisable decoding — but greedy confidence-based sampling
+          leads to <strong>trajectory lock-in</strong> where early errors cascade.
+          TABES introduces <strong>Backward-on-Entropy (BoE) Steering</strong>, a training-free framework that uses
+          a single backward pass to select tokens that <em>most reduce future masked uncertainty</em>,
+          yielding a superior quality–compute Pareto frontier.
+        </p>
+
         <div class="button-row">
-          <a class="btn btn-primary" href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">ArXiv</a>
-          <span class="btn btn-muted" aria-disabled="true">Code (coming soon)</span>
-          <a class="btn btn-ghost" href="blog.html">Read the Method Blog</a>
+          <a class="btn btn-primary" href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">
+            📄 ArXiv Paper
+          </a>
+          <span class="btn btn-muted" aria-disabled="true">
+            💻 Code (Coming Soon)
+          </span>
+        </div>
+
+        <div class="tag-row" style="margin-top: 1rem;">
+          <span class="tag">Training-Free</span>
+          <span class="tag">Model-Agnostic</span>
+          <span class="tag">Gradient-Guided</span>
+          <span class="tag">Inference-Time Scaling</span>
         </div>
       </section>
 
+      <!-- Pipeline Figure -->
       <section>
-        <h2>Why TABES?</h2>
+        <h2>Method Overview</h2>
+        <figure>
+          <img src="assets/images/tabes-pipeline.svg" alt="TABES BoE Steering Pipeline: forward pass → candidate prefilter → surrogate backward → TIS scoring → unmask top-b tokens" />
+          <figcaption>
+            <strong>BoE Steering Pipeline.</strong> At each denoising step, BoE runs a standard denoiser forward pass,
+            pre-filters candidates, constructs a relaxed surrogate state with soft embeddings, computes a single backward
+            signal, and scores candidates by Token Importance Score (TIS) — the predicted reduction in future masked entropy.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Key Ideas -->
+      <section>
+        <h2>Key Ideas</h2>
         <div class="card-grid">
           <article class="card">
-            <h3>Problem: trajectory lock-in</h3>
+            <span class="card-icon">🔒</span>
+            <h3>Trajectory Lock-in</h3>
             <p>
-              Standard entropy minimization can commit early to wrong tokens. As denoising
-              proceeds, alternatives collapse and decoding quality drops.
+              Greedy unmasking reveals "easy" tokens first (articles, function words) while delaying
+              structurally critical pivots. Under masked diffusion's locked-in property, early wrong
+              commits cannot be corrected — errors cascade globally.
             </p>
           </article>
           <article class="card">
-            <h3>Core idea: steer both directions</h3>
+            <span class="card-icon">🎯</span>
+            <h3>Token Importance Score</h3>
             <p>
-              TABES combines confidence growth in the forward chain with uncertainty-aware
-              correction from a reversed trajectory estimate.
+              TIS = −⟨g<sub>i</sub>, Δe<sub>i</sub>⟩ scores each masked token by how much revealing it
+              reduces <em>future</em> masked entropy. Derived from a first-order Taylor expansion with bounded
+              approximation error (Theorem 3.1).
             </p>
           </article>
           <article class="card">
-            <h3>Practical: no retraining</h3>
+            <span class="card-icon">⚡</span>
+            <h3>ActiveQueryAttention</h3>
             <p>
-              The method is drop-in for masked diffusion LMs and targets better outputs with
-              controlled computational overhead.
+              Sparse adjoint primitive that restricts backward computation to the active candidate set.
+              Reduces backward complexity from O(L²d) to O(|A|·L·d) while keeping forward predictions
+              <em>exactly</em> unchanged.
             </p>
           </article>
         </div>
       </section>
 
+      <!-- Problem illustration -->
       <section>
-        <h2>Method Snapshot</h2>
+        <h2>The Problem: Why Greedy Unmasking Fails</h2>
         <figure>
-          <img src="assets/images/tabes-pipeline.svg" alt="TABES pipeline diagram" />
+          <img src="assets/images/trajectory-lockin.svg" alt="Comparison of greedy local-confidence unmasking vs BoE steering showing trajectory lock-in problem and solution" />
           <figcaption>
-            Forward confidence steering and backward trajectory steering are fused each denoising
-            step to produce robust token updates.
+            <strong>Left:</strong> Greedy confidence-based schedules unmask easy tokens first, delaying load-bearing
+            pivots. Early wrong commits become locked-in.
+            <strong>Right:</strong> BoE prioritizes tokens with highest TIS — those that most reduce future uncertainty —
+            yielding stable trajectories and faster entropy reduction.
           </figcaption>
         </figure>
       </section>
 
+      <!-- Results -->
       <section>
-        <h2>Reported Gains</h2>
+        <h2>Results</h2>
+        <p>
+          BoE achieves a <strong>superior Pareto frontier</strong> for inference-time scaling on LLaDA-8B and
+          LLaDA-1.5, consistently improving over confidence, margin, entropy, ReMDM, and LookUM baselines
+          under compute-matched decoding.
+        </p>
         <figure>
-          <img src="assets/images/results-snapshot.svg" alt="TABES reported gains summary" />
+          <img src="assets/images/results-snapshot.svg" alt="Bar chart comparing BoE against Confidence and LookUM baselines on MBPP, HumanEval, GSM8K, MATH500, and Sudoku benchmarks" />
           <figcaption>
-            Paper-reported improvements across text completion, code infilling, and protein
-            sequence design benchmarks.
+            <strong>LLaDA-8B pass@1 accuracy (L=256).</strong> BoE achieves best results on MBPP, GSM8K, and
+            Sudoku while remaining competitive on HumanEval and MATH500. All methods are training-free.
           </figcaption>
         </figure>
+
+
+      </section>
+
+      <!-- Ablations highlight -->
+      <section>
+        <h2>What Matters? Ablation Highlights</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>🔬 Gradient signal is key</h3>
+            <p>The backward-on-entropy scoring (TIS) is the primary driver of accuracy gains. Removing it drops GSM8K from 73.9 to baseline levels.</p>
+          </article>
+          <article class="card">
+            <h3>🏎️ ActiveQueryAttention essential</h3>
+            <p>Without it, runtime increases ~40% (2.71 vs 1.94 hrs) with negligible accuracy change. Sparse backward makes BoE practical.</p>
+          </article>
+          <article class="card">
+            <h3>🎛️ ρ = 0.25 is a sweet spot</h3>
+            <p>Active fraction ρ provides a smooth speed–accuracy knob. ρ=0.25 recovers ~full accuracy (73.7 vs 73.9) at minimal overhead.</p>
+          </article>
+        </div>
       </section>
     </main>
 
+    <!-- ===== Footer with Citation ===== -->
     <footer class="site-footer shell">
-      <h3>Cite Guide</h3>
-      <p>If this work helps your research, please cite the paper:</p>
-      <pre><code>@article{luo2026tabes,
-  title   = {TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models},
-  author  = {Luo, Yanchen and Wang, Peisong and Liao, Tinglong and Tong, Shengbang and Zhuang, Yufei and Zhu, Minjun and Zhang, Hao and Cun, Xiaodong and Xu, Qiang},
-  journal = {arXiv preprint arXiv:2602.00250},
-  year    = {2026}
+      <h3>📝 Citation Guide</h3>
+      <p>If this work helps your research, please cite:</p>
+      <pre><code>@misc{saini2026tabestrajectoryawarebackwardonentropysteering,
+      title={TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models}, 
+      author={Shreshth Saini and Avinab Saha and Balu Adsumilli and Neil Birkbeck and Yilin Wang and Alan C. Bovik},
+      year={2026},
+      eprint={2602.00250},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2602.00250}, 
 }</code></pre>
-      <p class="footer-note">Project links: <a href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">ArXiv</a> | Code: coming soon.</p>
+      <p class="footer-note">
+        <a href="https://arxiv.org/abs/2602.00250" target="_blank" rel="noreferrer">📄 ArXiv</a> &nbsp;|&nbsp;
+        💻 Code: coming soon
+      </p>
     </footer>
   </body>
 </html>

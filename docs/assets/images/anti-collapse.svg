@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" font-family="'Segoe UI','Helvetica Neue',sans-serif">
+  <defs>
+    <linearGradient id="bgAc" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fff8f0"/><stop offset="100%" stop-color="#f0faf8"/></linearGradient>
+    <filter id="shAc"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="800" height="250" rx="16" fill="url(#bgAc)"/>
+  <text x="400" y="28" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2f2a">Anti-Collapse Regularizer: Preventing Premature Overcommitment</text>
+
+  <!-- Timeline -->
+  <line x1="80" y1="190" x2="720" y2="190" stroke="#ccc" stroke-width="1.5"/>
+  <text x="80" y="210" font-size="9" fill="#888" text-anchor="middle">t = T</text>
+  <text x="400" y="210" font-size="9" fill="#888" text-anchor="middle">denoising →</text>
+  <text x="720" y="210" font-size="9" fill="#888" text-anchor="middle">t = 1</text>
+  <text x="80" y="222" font-size="8" fill="#888" text-anchor="middle">(all masked)</text>
+  <text x="720" y="222" font-size="8" fill="#888" text-anchor="middle">(complete)</text>
+
+  <!-- Entropy floor line h_t -->
+  <path d="M 80 80 Q 250 90, 400 130 Q 550 160, 720 185" stroke="#e8872d" stroke-width="2.5" stroke-dasharray="6,4" fill="none"/>
+  <text x="150" y="72" font-size="10" fill="#e8872d" font-weight="600">Entropy floor h_t</text>
+  <text x="150" y="86" font-size="9" fill="#e8872d">h_t = h_max · (t/T)</text>
+
+  <!-- Annotation: early regime -->
+  <rect x="100" y="100" width="180" height="55" rx="10" fill="#fff8f0" stroke="#e8872d" filter="url(#shAc)"/>
+  <text x="190" y="118" text-anchor="middle" font-size="10" fill="#e8872d" font-weight="600">Early steps (t ≈ T)</text>
+  <text x="190" y="134" text-anchor="middle" font-size="9" fill="#42534d">High floor → penalize</text>
+  <text x="190" y="148" text-anchor="middle" font-size="9" fill="#42534d">overly confident reveals</text>
+
+  <!-- Annotation: late regime -->
+  <rect x="500" y="100" width="180" height="55" rx="10" fill="#f0fdfb" stroke="#0f6c62" filter="url(#shAc)"/>
+  <text x="590" y="118" text-anchor="middle" font-size="10" fill="#0f6c62" font-weight="600">Late steps (t ≈ 1)</text>
+  <text x="590" y="134" text-anchor="middle" font-size="9" fill="#42534d">Low floor → allow</text>
+  <text x="590" y="148" text-anchor="middle" font-size="9" fill="#42534d">confident commits freely</text>
+
+  <!-- Formula -->
+  <rect x="200" y="228" width="400" height="18" rx="4" fill="none"/>
+  <text x="400" y="242" text-anchor="middle" font-size="10" fill="#42534d">Penalty: R_t(U) = Σ_{i∈U} [h_t − H_i]²₊  (squared hinge on entropy floor)</text>
+</svg>
