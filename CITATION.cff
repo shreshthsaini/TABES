@@ -1,54 +1,38 @@
 cff-version: 1.2.0
 message: "If you use this repository or paper, please cite the preferred citation."
-title: "TABES Project Resources"
+title: "TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models"
 type: software
 license: MIT
 repository-code: "https://github.com/shreshthsaini/TABES"
 url: "https://shreshthsaini.github.io/TABES/"
 authors:
-  - family-names: Luo
-    given-names: Yanchen
+  - family-names: Saini
+    given-names: Shreshth
+  - family-names: Saha
+    given-names: Avinab
+  - family-names: Adsumilli
+    given-names: Balu
+  - family-names: Birkbeck
+    given-names: Neil
   - family-names: Wang
-    given-names: Peisong
-  - family-names: Liao
-    given-names: Tinglong
-  - family-names: Tong
-    given-names: Shengbang
-  - family-names: Zhuang
-    given-names: Yufei
-  - family-names: Zhu
-    given-names: Minjun
-  - family-names: Zhang
-    given-names: Hao
-  - family-names: Cun
-    given-names: Xiaodong
-  - family-names: Xu
-    given-names: Qiang
+    given-names: Yilin
+  - family-names: Bovik
+    given-names: Alan C.
 preferred-citation:
   type: article
   title: "TABES: Trajectory-Aware Backward-on-Entropy Steering for Masked Diffusion Models"
   authors:
-    - family-names: Luo
-      given-names: Yanchen
+    - family-names: Saini
+      given-names: Shreshth
+    - family-names: Saha
+      given-names: Avinab
+    - family-names: Adsumilli
+      given-names: Balu
+    - family-names: Birkbeck
+      given-names: Neil
     - family-names: Wang
-      given-names: Peisong
-    - family-names: Liao
-      given-names: Tinglong
-    - family-names: Tong
-      given-names: Shengbang
-    - family-names: Zhuang
-      given-names: Yufei
-    - family-names: Zhu
-      given-names: Minjun
-    - family-names: Zhang
-      given-names: Hao
-    - family-names: Cun
-      given-names: Xiaodong
-    - family-names: Xu
-      given-names: Qiang
+      given-names: Yilin
+    - family-names: Bovik
+      given-names: Alan C.
   journal: "arXiv preprint arXiv:2602.00250"
   year: 2026
-  identifiers:
-    - type: doi
-      value: "10.48550/arXiv.2602.00250"
-  url: "https://arxiv.org/abs/2602.00250"
