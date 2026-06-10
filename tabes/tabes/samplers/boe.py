@@ -31,11 +31,11 @@ from tabes.samplers.base import NEG_INF, BaseSampler
 
 @dataclass
 class BoEConfig:
-    n_candidates: int = 8       # r: prefilter size
-    tau: float = 1.0            # soft-embedding sharpening temperature
+    n_candidates: int = 3       # r: prefilter size (keep tight: the gate IS the prefilter)
+    tau: float = 0.5            # soft-embedding sharpening temperature
     gamma: float = 1.0          # confidence-gating exponent
-    lambda_ac: float = 1.0      # anti-collapse penalty weight
-    h_max: float = 1.0          # entropy floor at t = T (nats)
+    lambda_ac: float = 0.2      # anti-collapse penalty weight
+    h_max: float = 0.3          # entropy floor at t = T (nats)
     rho: float = 1.0            # active fraction: probes capped at rho * L
     use_aqa: bool = True        # sparse adjoint (ablation: full backward)
     use_tis: bool = True        # set False to ablate gradient signal entirely

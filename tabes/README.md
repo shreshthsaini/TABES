@@ -89,6 +89,40 @@ matching the paper's compute model.
   `split` mode (which realizes the actual sparse-backward savings) computes
   identical gradients.
 
+## Results (toy scale, CPU, 300 eval examples)
+
+Full tables: [`results/report.md`](results/report.md). Headline — Sudoku-4
+constraint-satisfaction accuracy (the lock-in stress test), tuned BoE
+(`r=3, τ=0.5, γ=1, λ_ac=0.2, h_max=0.3`):
+
+| steps | random | confidence | margin | entropy | **BoE** |
+|---|---|---|---|---|---|
+| 2 | 0.233 | 0.240 | 0.220 | 0.223 | 0.230 |
+| 4 | 0.293 | 0.303 | 0.310 | 0.293 | **0.380** |
+| 8 | 0.400 | 0.443 | 0.443 | 0.447 | **0.460** (ρ=0.25: **0.477**) |
+
+Mirrors of the paper's findings at toy scale:
+
+* **Gradient signal is key**: ablating TIS drops sudoku@8 from 0.460 → 0.443
+  (confidence-level).
+* **ρ = 0.25 sweet spot**: best accuracy in the ρ sweep (0.477), echoing the
+  paper's ablation.
+* **Trajectory mechanism visible in traces**
+  ([`results/entropy_trajectories.md`](results/entropy_trajectories.md)): BoE
+  drives residual masked entropy down strictly faster than all
+  confidence-style baselines from the very first steps.
+* **AQA**: forward exactness verified to 1e-4; backward wall-clock ~1.25–1.3×
+  faster than dense at L=512–1024 *on CPU*, Amdahl-limited because the MLP
+  adjoint (untouched by design) dominates at this scale
+  ([`results/aqa_timing.json`](results/aqa_timing.json)). The paper's larger
+  end-to-end gains are expected where attention dominates (8B, long L, GPU).
+* On arithmetic all samplers saturate at the model's 0.960 ceiling — BoE never
+  regresses below baselines.
+* **Hyperparameter sensitivity (practical note)**: an over-strong anti-collapse
+  penalty (λ_ac=1, h_max=1) *inverts* the selection toward uncertain commits
+  and costs 17 accuracy points on sudoku@8; keep the penalty mild and the
+  prefilter tight.
+
 ## Layout
 
 ```

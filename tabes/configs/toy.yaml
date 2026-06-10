@@ -19,12 +19,14 @@ train:
   warmup: 100
   log_every: 200
 
+# Tuned on sudoku4 (see results/report.md): tight prefilter + mild penalty.
+# A large lambda_ac/h_max inverts the score and forces uncertain commits early.
 boe:
-  n_candidates: 8
-  tau: 1.0
+  n_candidates: 3
+  tau: 0.5
   gamma: 1.0
-  lambda_ac: 1.0
-  h_max: 1.0
+  lambda_ac: 0.2
+  h_max: 0.3
   rho: 1.0
   use_aqa: true
   use_tis: true
