@@ -1,6 +1,0 @@
-torch>=2.1
-numpy
-pyyaml
-pytest
-# Optional, for running on LLaDA checkpoints (GPU):
-# transformers>=4.40
